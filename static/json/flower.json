@@ -1,0 +1,48 @@
+[
+	{
+		"id":"/detail/a1",
+		"src":"static/img/hua-1.jpg",
+		"name":"千山叶 贡菊花茶 花草茶 50克/罐",
+		"price":"18.00",
+		"sell":"21份",
+		"store":"29",
+		"good":"100%",
+		"comment":"1人评价"
+	},
+	{
+		"id":"/detail/a2",
+		"src":"static/img/hua-2.jpg",
+		"name":"千山叶 陈皮 花草茶 150克/罐",
+		"price":"18.00",
+		"sell":"26份",
+		"store":"24",
+		"good":"100%",
+		"comment":"3人评价",
+		"ming":"陈皮",
+		"dosing":"橘皮",
+		"content":"150克",
+		"place":"新会",
+		"quality":"18个月",
+		"stock":"干燥、低温、密封、防异味"
+	},
+	{
+		"id":"/detail/a3",
+		"src":"static/img/hua-3.jpg",
+		"name":"千山叶 宁夏枸杞 花草茶 280克/罐",
+		"price":"35.00",
+		"sell":"25份",
+		"store":"25",
+		"good":"100%",
+		"comment":"1人评价"
+	},
+	{
+		"id":"/detail/a4",
+		"src":"static/img/hua-4.jpg",
+		"name":"千山叶 洛神花茶（玫瑰茄） 花草茶 70克/罐",
+		"price":"20.00",
+		"sell":"13份",
+		"store":"37",
+		"good":"100%",
+		"comment":"1人评价"
+	}
+]

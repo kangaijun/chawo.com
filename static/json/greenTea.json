@@ -1,0 +1,62 @@
+[
+	{
+		"id":"/detail/v1",
+		"src":"static/img/lv-1.jpg",
+		"name":"蒲门 云南滇青绿茶 特级绿茶 100克/盒",
+		"price":"46.00",
+		"sell":"65",
+		"store":"49",
+		"good":"100%",
+		"comment":"9人评价",
+		"ming":"云南滇青绿茶 特级绿茶",
+		"brand":"蒲门",
+		"craft":"云南滇青绿茶",
+		"rule":"100克/包（买2包送手提袋）",
+		"stock":"在通风、干燥无异味 、常温环境下存储"
+	},
+	{
+		"id":"/detail/v2",
+		"src":"static/img/lv-2.jpg",
+		"name":"千山叶 云南滇青绿茶 高香玉螺 300克/罐",
+		"price":"68.00",
+		"sell":"9份",
+		"store":"191",
+		"good":"100%",
+		"comment":"2人评价",
+		"ming":"高香玉螺",
+		"brand":"千山叶",
+		"craft":"云南滇青绿茶",
+		"rule":"300克/罐",
+		"stock":"在通风、干燥无异味 、常温环境下存储"
+	},
+	{
+		"id":"/detail/v3",
+		"src":"static/img/lv-3.jpg",
+		"name":"千山叶 云南滇青绿茶 玉针 150克/罐",
+		"price":"98.00",
+		"sell":"5份",
+		"store":"195",
+		"good":"100%",
+		"comment":"1人评价",
+		"ming":"玉针",
+		"brand":"千山叶",
+		"craft":"云南滇青绿茶",
+		"rule":"150克/罐",
+		"stock":"在通风、干燥无异味 、常温环境下存储"
+	},
+	{
+		"id":"/detail/v4",
+		"src":"static/img/lv-4.jpg",
+		"name":"千山叶 云南滇青绿茶 碧螺春 300克/罐",
+		"price":"48.00",
+		"sell":"5罐",
+		"store":"195",
+		"good":"100%",
+		"comment":"1人评价",
+		"ming":"碧螺春",
+		"brand":"千山叶",
+		"craft":"云南滇青绿茶",
+		"rule":"300克/罐",
+		"stock":"在通风、干燥无异味 、常温环境下存储"
+	}
+]
