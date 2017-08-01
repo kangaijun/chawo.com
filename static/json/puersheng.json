@@ -1,6 +1,7 @@
 [
 	{
-		"id":"/detail/p1",
+		"path":"/detail/p1",
+		"id":"p1",
 		"src":"static/img/s-1.jpg",
 		"name":"2015年大益 春圆 1501批 普洱生茶 357克",
 		"price":"60.00",
@@ -16,7 +17,8 @@
 		"stock":"在通风、干燥无异味 、常温环境下存储"
 	},
 	{
-		"id":"/detail/p2",
+		"path":"/detail/p2",
+		"id":"p2",
 		"src":"static/img/s-2.jpg",
 		"name":"2017年下关 传承FTT53-17(铁饼)生茶 357克/饼",
 		"price":"65.00",
@@ -32,7 +34,8 @@
 		"stock":"在通风、干燥无异味 、常温环境下存储"
 	},
 	{
-		"id":"/detail/p3",
+		"path":"/detail/p3",
+		"id":"p3",
 		"src":"static/img/s-3.jpg",
 		"name":"2014年中茶 经典7541 普洱生茶 357克/饼 单片",
 		"price":"198.00",
@@ -48,7 +51,8 @@
 		"stock":"在通风、干燥无异味 、常温环境下存储"
 	},
 	{
-		"id":"/detail/p4",
+		"path":"/detail/p4",
+		"id":"p4",
 		"src":"static/img/s-4.jpg",
 		"name":"2017年八角亭 凤山 生茶 357克/饼",
 		"price":"103.00",

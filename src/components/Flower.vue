@@ -2,7 +2,7 @@
   <div class="flower">
     <ul>
     	<li v-for="item in items">
-    		<router-link v-bind:to=item.id>
+    		<router-link v-bind:to=item.path>
     			<img v-bind:src=item.src />
     			<p>{{item.name}}</p>
     			<p>￥{{item.price}}</p>
@@ -23,7 +23,7 @@ export default {
   },
   created(){
   	var that=this;
-  	axios.get("static/json/flower.json").then(function(res){
+  	axios.get("static/json/flowers.json").then(function(res){
 		that.items=res.data;
   	})
   }

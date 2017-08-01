@@ -7,7 +7,7 @@ import Server from '@/components/Server'
 import ShoppingCar from '@/components/ShoppingCar'
 import Load from '@/components/Load'
 import Register from '@/components/Register'
-import Common from '@/components/Common'
+import Putong from '@/components/Putong'
 import Phone from '@/components/Phone'
 import Detail from '@/components/Detail'
 import Br from '@/components/Br'
@@ -21,6 +21,7 @@ import White from '@/components/White'
 import Wulong from '@/components/Wulong'
 import Lv from '@/components/Lv'
 import Search from '@/components/Search'
+import Loaded from '@/components/Loaded'
 
 Vue.use(Router)
 
@@ -28,6 +29,7 @@ export default new Router({
   routes: [
   	{path:'/', redirect:'/hello/home'},
   	{path:'/kind', redirect:'/kind/br'},
+  	{path:'/register', redirect:'/register/putong'},
     {
       path: '/hello',
       name: 'Hello',
@@ -49,10 +51,10 @@ export default new Router({
       		component: ShoppingCar
       	},
       	{
-		    	path: '/detail/:id',
-		      name: 'Detail',
-		      component: Detail
-		    }
+      		path: 'loaded',
+      		name: 'Loaded',
+      		component: Loaded
+      	}
       ]
     },
     {
@@ -120,12 +122,29 @@ export default new Router({
   	{
   		path: '/register',
   		name: 'Register',
-  		component: Register
+  		component: Register,
+  		children:[
+  			{
+  				path: 'putong',
+      		name: 'Putong',
+      		component: Putong
+  			},
+  			{
+  				path: 'phone',
+      		name: 'Phone',
+      		component: Phone
+  			}
+  		]
   	},
   	{
   		path: '/search',
   		name: 'Search',
   		component: Search
-  	}
+  	},
+  	{
+    	path: '/detail/:id',
+      name: 'Detail',
+      component: Detail
+    }
   ]
 })

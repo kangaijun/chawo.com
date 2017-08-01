@@ -1,7 +1,7 @@
 <template>
   <div class="checkbox">
 		<input type="checkbox" id="check" checked="checked" />
-		<label for="check"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;七天自动登录
+		<label for="check"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	</div>
 </template>
 

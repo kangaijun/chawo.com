@@ -7,9 +7,10 @@
     </div>
     <div class="remain">
     	<ul id="renav">
-    		<li><img src="static/img/reg_r1.png"/> 普通注册</li>
-    		<li><img src="static/img/regm_r1.png" /> 手机注册</li>
+    		<li><router-link to="/register/putong" active-class="active" ><img src="static/img/reg_r1.png"/> 普通注册</router-link></li>
+    		<li><router-link to="/register/phone" active-class="active" ><img src="static/img/regm_r1.png" /> 手机注册</router-link></li>
     	</ul>
+    	<router-view></router-view>
     </div>
   </div>
 </template>
@@ -85,5 +86,13 @@ a {
 #renav li img{
 	position: relative;
 	top: 2px;
+}
+.active{
+	color: #ed5564;
+	border-bottom: 2px solid #ed5564;
+}
+#renav li a{
+	display: inline-block;
+	padding-bottom: 10px;
 }
 </style>

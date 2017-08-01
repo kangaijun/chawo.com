@@ -1,16 +1,23 @@
 <template>
-  <div class="phone">
+  <div class="common">
     <div class="ipt">
-			<p>手机号：</p>
-			<input type="tel" name="" id="pass" placeholder="请输入手机号" />
-		</div>
-		<div class="ipt">
-			<p>验证码：</p>
-			<input type="password" name="" id="pass" placeholder="请输入4位验证码" />
-		</div>
-		<p id="agree"><checkbox></checkbox>同意 <a href="">用户注册协议</a></p>
-  	<input type="submit" id="sub" value="获取验证码" />
-  	<p>绑定手机不收任何费用，一个手机只能绑定一个账号，若需修改或解除已绑定的手机，请登录商城PC端进行操作。</p>
+		<p>用&nbsp; 户&nbsp; 名：</p>
+		<input type="text" name="username" id="newacount" placeholder="请输入6-20个字符" v-model="username" />
+	</div>
+	<div class="ipt">
+		<p>设置密码：</p>
+		<input type="password" name="password" id="pass" placeholder="请输入6-20位密码" v-model="password" />
+	</div>
+	<div class="ipt">
+		<p>确认密码：</p>
+		<input type="password" name="" id="confirm" placeholder="请再次输入密码" />
+	</div>
+	<div class="ipt">
+		<p>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  箱：</p>
+		<input type="text" name="email" id="email" placeholder="请输入常用邮箱地址" v-mode="email" />
+	</div>
+	<p id="agree"><checkbox></checkbox>同意 <a href="">用户注册协议</a></p>
+	<input type="submit" id="sub" value="注 册" />
   </div>
 </template>
 
@@ -20,7 +27,7 @@ export default {
 	components:{
 		Checkbox
 	},
-  name: 'phone',
+  name: 'common',
   data () {
     return {
       
@@ -40,6 +47,9 @@ a {
   text-decoration: none;
   color: #444444;
   font-size: 12px;
+}
+.common{
+	margin-top: 12px;
 }
 .ipt{
 	width: 100%;
@@ -71,13 +81,5 @@ a {
 	margin-left: 5%;
 	font-size: 16px;
 	color: #555555;
-}
-#sub+p{
-	color: #999999;
-	font-size: 12px;
-	width: 252px;
-	text-align: center;
-	margin-left: 10%;
-	margin-top: 20px;
 }
 </style>

@@ -8,19 +8,20 @@
     <div class="minemain">
     	<div class="ipt">
     		<p>账 &nbsp;户：</p>
-    		<input type="text" name="" id="acount" placeholder="请输入用户名/已验证手机" />
+    		<input type="text" name="username" id="acount" placeholder="请输入用户名/已验证手机" v-model="username" />
     	</div>
     	<div class="ipt">
     		<p>密 &nbsp;码：</p>
-    		<input type="password" name="" id="password" placeholder="请输入登录密码" />
+    		<input type="password" name="password" id="password" placeholder="请输入登录密码" ref="pass" v-model="password" />
     	</div>
     	<div id="auto">
-    		<checkbox></checkbox>
+    		<checkbox></checkbox>七天自动登录
     		<span>忘记密码？</span>
     	</div>
-    	<input type="submit" id="sub" value="登 录" />
+    	<input type="submit" id="sub" value="登 录" @click="load" />
+    	<div class="loser" v-show="showTishi">登录失败</div>
     	<div class="foot">
-    		<p>合作账号登录</p>
+    		<p>合作账号登录</p> 
     		<div>
     			<img src="static/img/qq.png"/>
     		</div>
@@ -31,6 +32,9 @@
 
 <script>
 import Checkbox from '@/components/Checkbox'
+import axios from 'axios'
+import {setCookie,getCookie} from '../assets/cookie.js'
+
 export default {
 	components:{
 		Checkbox
@@ -38,7 +42,16 @@ export default {
   name: 'load',
   data () {
     return {
-      isshow:false
+      isshow:false,
+      showTishi:false,
+      username:"",
+      password:""
+    }
+  },
+  mounted(){
+  /*页面挂载获取cookie，如果存在username的cookie，则跳转到主页，不需登录*/
+    if(getCookie('username')){
+        this.$router.push('/hello/loaded')
     }
   },
   methods:{
@@ -47,6 +60,26 @@ export default {
   	},
   	register(){
   		this.$router.push("/register");
+  	},
+  	load(){
+  		var that=this;
+			if(this.username == "" || this.password == ""){
+            alert("请输入用户名或密码")
+        }else{
+	        let data = {'username':this.username,'password':this.password}
+	        /*接口请求*/
+	        axios.post('http://localhost:6500/load/login',data,{
+								headers:{'Content-Type':'application/json'}
+	    		})
+	        .then((res)=>{
+	              setCookie('username',this.username,1000*60);
+	              setTimeout(function(){
+	                  this.$router.push('/hello/loaded')
+	              }.bind(this),1000)
+	          }).catch(function(){
+	          	that.showTishi = true;
+	          })
+      }
   	}
   }
 }
@@ -127,7 +160,7 @@ a {
 	width: 100%;
 	height: 106px;
 	border-top: 1px solid #cccccc;
-	margin-top: 235px;
+	margin-top: 165px;
 	position: relative;
 }
 .foot p{
@@ -149,5 +182,15 @@ a {
 .foot div img{
 	width: 80%;
 	margin: 3px;
+}
+.loser{
+	width: 160px;
+	height: 52px;
+	border: 1px solid #cccccc;
+	border-radius: 5px;
+	box-shadow: 0 0 15px darkgray;
+margin: 15px auto;
+text-align: center;
+line-height: 52px;
 }
 </style>

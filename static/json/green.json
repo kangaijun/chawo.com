@@ -1,6 +1,7 @@
 [
 	{
-		"id":"/detail/v1",
+		"path":"/detail/v1",
+		"id":"v1",
 		"src":"static/img/lv-1.jpg",
 		"name":"蒲门 云南滇青绿茶 特级绿茶 100克/盒",
 		"price":"46.00",
@@ -15,7 +16,8 @@
 		"stock":"在通风、干燥无异味 、常温环境下存储"
 	},
 	{
-		"id":"/detail/v2",
+		"path":"/detail/v2",
+		"id":"v2",
 		"src":"static/img/lv-2.jpg",
 		"name":"千山叶 云南滇青绿茶 高香玉螺 300克/罐",
 		"price":"68.00",
@@ -30,7 +32,8 @@
 		"stock":"在通风、干燥无异味 、常温环境下存储"
 	},
 	{
-		"id":"/detail/v3",
+		"path":"/detail/v3",
+		"id":"v3",
 		"src":"static/img/lv-3.jpg",
 		"name":"千山叶 云南滇青绿茶 玉针 150克/罐",
 		"price":"98.00",
@@ -45,7 +48,8 @@
 		"stock":"在通风、干燥无异味 、常温环境下存储"
 	},
 	{
-		"id":"/detail/v4",
+		"path":"/detail/v4",
+		"id":"v4",
 		"src":"static/img/lv-4.jpg",
 		"name":"千山叶 云南滇青绿茶 碧螺春 300克/罐",
 		"price":"48.00",

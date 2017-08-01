@@ -1,6 +1,7 @@
 [
 	{
-		"id":"/detail/h1",
+		"path":"/detail/h1",
+		"id":"h1",
 		"src":"static/img/h-1.jpg",
 		"name":"[评测]滇红1号(滇红一号) 特级工夫红茶 蒲门 滇红茶 300克 1包",
 		"price":"48.00",
@@ -15,7 +16,8 @@
 		"stock":"在通风、干燥无异味 、常温环境下存储"
 	},
 	{
-		"id":"/detail/h2",
+		"path":"/detail/h2",
+		"id":"h2",
 		"src":"static/img/h-2.jpg",
 		"name":"千山叶 云南滇红茶 大金芽 100克/罐",
 		"price":"78.00",
@@ -32,7 +34,8 @@
 		"mings":"85-90度开水冲泡"
 	},
 	{
-		"id":"/detail/h3",
+		"path":"/detail/h3",
+		"id":"h3",
 		"src":"static/img/h-3.jpg",
 		"name":"2015年 雪芽晒红（新包装） 红茶 150克/盒",
 		"price":"45.00",
@@ -48,7 +51,8 @@
 		"stock":"在通风、干燥无异味 、常温环境下存储"
 	},
 	{
-		"id":"/detail/h4",
+		"path":"/detail/h4",
+		"id":"h4",
 		"src":"static/img/h-4.jpg",
 		"name":"太璞 紫鹃红茶 特级红茶 80克/罐",
 		"price":"128.00",

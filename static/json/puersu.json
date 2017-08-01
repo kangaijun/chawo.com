@@ -1,6 +1,7 @@
 [
 	{
-		"id":"/detail/s1",
+		"path":"/detail/s1",
+		"id":"s1",
 		"src":"static/img/shu-1.jpg",
 		"name":"2016年大益 7592 熟茶 357克/片",
 		"price":"57.00",
@@ -16,7 +17,8 @@
 		"stock":"在通风、干燥无异味 、常温环境下存储"
 	},
 	{
-		"id":"/detail/s2",
+		"path":"/detail/s2",
+		"id":"s2",
 		"src":"static/img/shu-2.jpg",
 		"name":"2013年中茶 7581 单片装 熟茶 250克/砖",
 		"price":"98.00",
@@ -32,7 +34,8 @@
 		"stock":"在通风、干燥无异味 、常温环境下存储"
 	},
 	{
-		"id":"/detail/s3",
+		"path":"/detail/s3",
+		"id":"s3",
 		"src":"static/img/shu-3.jpg",
 		"name":"2010年八角亭 7590 熟茶 黎明茶厂 357克 单片",
 		"price":"65.00",
@@ -48,7 +51,8 @@
 		"stock":"在通风、干燥无异味 、常温环境下存储"
 	},
 	{
-		"id":"/detail/s4",
+		"path":"/detail/s4",
+		"id":"s4",
 		"src":"static/img/shu-4.jpg",
 		"name":"2016年下关 一级散普 熟茶 100克/盒",
 		"price":"30.00",
