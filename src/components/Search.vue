@@ -2,18 +2,19 @@
   <div class="search">
     <div class="cartop">
     	<p @click="back"><b><</b></p>
-    	<p><input type="text" id="search" placeholder="大益" /></p>
-    	<p>搜索</p>
+    	<p><input type="text" id="search" placeholder="大益" v-model="sousuo" /></p>
+    	<p @click="sou">搜索</p>
     </div>
     <div class="smain">
     	<p>热门搜索</p>
     	<ul id="hot">
-    		<li v-for="str in arr">{{str}}</li>
+    		<li v-for="str in arr" @click="cli(str)">{{str}}</li>
     	</ul>
     	<p>历史记录</p>
     	<ul id="history">
+    		<li>中茶</li>
+    		<li>大益</li>
     		<li>紫砂</li>
-    		<li>普洱茶</li>
     	</ul>
     	<button>清空历史</button>
     </div>
@@ -21,17 +22,28 @@
 </template>
 
 <script>
+import {setCookie,getCookie} from '../assets/cookie.js'
 export default {
   name: 'search',
   data(){
   	return{
-  		arr:["中茶","大益","下关","七彩云南","中茶","八角亭","紫砂"]
+  		arr:["中茶","大益","下关","七彩云南","中茶","八角亭","紫砂"],
+  		val:"",
+  		is:false,
+  		sousuo:""
   	}
   },
   methods:{
   	back(){
   		this.$router.go(-1);
+  	},
+  	sou(){
+			this.$router.push({path:"/hello/list",query:{name:this.sousuo}});
+  	},
+  	cli(str){
+  		this.$router.push({path:"/hello/list",query:{strings:str}});
   	}
+  	
   }
 }
 </script>

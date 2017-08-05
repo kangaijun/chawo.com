@@ -12,14 +12,15 @@
     	</div>
     	<div class="ipt">
     		<p>密 &nbsp;码：</p>
-    		<input type="password" name="password" id="password" placeholder="请输入登录密码" ref="pass" v-model="password" />
+    		<input type="password" name="password" id="password" placeholder="请输入登录密码"  v-model="password" />
     	</div>
     	<div id="auto">
     		<checkbox></checkbox>七天自动登录
     		<span>忘记密码？</span>
     	</div>
     	<input type="submit" id="sub" value="登 录" @click="load" />
-    	<div class="loser" v-show="showTishi">登录失败</div>
+    	<div class="loser" v-show="showTishi">该用户未注册</div>
+    	<div class="loser" v-show="show">登录成功</div>
     	<div class="foot">
     		<p>合作账号登录</p> 
     		<div>
@@ -44,6 +45,7 @@ export default {
     return {
       isshow:false,
       showTishi:false,
+      show:false,
       username:"",
       password:""
     }
@@ -53,6 +55,7 @@ export default {
     if(getCookie('username')){
         this.$router.push('/hello/loaded')
     }
+    
   },
   methods:{
   	mineToHome(){
@@ -66,18 +69,25 @@ export default {
 			if(this.username == "" || this.password == ""){
             alert("请输入用户名或密码")
         }else{
+        	$("#sub").css("background","#ed5564").css("color","white")
 	        let data = {'username':this.username,'password':this.password}
 	        /*接口请求*/
 	        axios.post('http://localhost:6500/load/login',data,{
 								headers:{'Content-Type':'application/json'}
 	    		})
 	        .then((res)=>{
+	        			this.show=true;
 	              setCookie('username',this.username,1000*60);
 	              setTimeout(function(){
 	                  this.$router.push('/hello/loaded')
 	              }.bind(this),1000)
 	          }).catch(function(){
+	          	that.username = '';
+            	that.password = '';
 	          	that.showTishi = true;
+	          	window.onclick=function(){
+	          		that.showTishi = false;
+	          	}
 	          })
       }
   	}
@@ -123,7 +133,7 @@ a {
 	position: relative;
 }
 .ipt{
-	width: 100%;
+	width: 89%;
 	height: 40px;
 	background: white;
 	padding-left: 35px;
@@ -189,8 +199,8 @@ a {
 	border: 1px solid #cccccc;
 	border-radius: 5px;
 	box-shadow: 0 0 15px darkgray;
-margin: 15px auto;
-text-align: center;
-line-height: 52px;
+	margin: 15px auto;
+	text-align: center;
+	line-height: 52px;
 }
 </style>

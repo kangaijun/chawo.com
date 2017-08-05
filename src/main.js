@@ -4,8 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+import Vue2Filters from 'vue2-filters'
 
 Vue.use(VueAwesomeSwiper)
+Vue.use(Vue2Filters)
 
 Vue.config.productionTip = false
 

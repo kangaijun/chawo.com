@@ -13,7 +13,7 @@
     	<littlemenu v-show="isshow" id="show"></littlemenu>
     	<ul>
     		<li v-for="kind in arr">
-    			<router-link v-bind:to="kind.path">
+    			<router-link v-bind:to="kind.path" active-class="ac">
     				<img v-bind:src="kind.img"/>
     				<p>{{kind.title}}</p>
     			</router-link>
@@ -133,11 +133,10 @@ a {
 	border-bottom: 1px solid #eeeeee;
 	padding: 5px 0;
 }
-.kindmain li:nth-child(1){
-	border-bottom: 2px solid #ed5564;
-}
-.kindmain li:nth-child(1) a{
-	color: #ed5564;
+.kindmain li a{
+	display: inline-block;
+	width: 80%;
+	padding-bottom: 16px;
 }
 .kindmain li img{
 	width: 45%;
@@ -150,5 +149,10 @@ a {
 #show{
 	top: 42px;
 	z-index: 11;
+	
+}
+.ac{
+	color: #ed5564;
+	border-bottom: 2px solid #ed5564;
 }
 </style>

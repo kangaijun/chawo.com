@@ -1,9 +1,8 @@
 <template>
   <div class="wulong">
-    乌龙茶
+    暂时没有商品！
   </div>
 </template>
-
 <script>
 export default {
   name: 'wulong',
@@ -24,5 +23,9 @@ a {
   text-decoration: none;
   color: #444444;
   font-size: 12px;
+}
+.wulong{
+	text-align: center;
+	padding-top: 300px;
 }
 </style>

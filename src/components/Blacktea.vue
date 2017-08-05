@@ -36,6 +36,7 @@ export default {
 	margin: 0;padding: 0;
 	list-style-type: none;
 	outline: none;
+	box-sizing: border-box;
 }
 a {
   text-decoration: none;

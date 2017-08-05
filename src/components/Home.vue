@@ -25,7 +25,7 @@
     		<li><router-link to="/load">登录</router-link></li><span>|</span>
     		<li><router-link to="/register">注册</router-link></li><span>|</span>
     		<li><router-link to="/load">反馈</router-link></li><span>|</span>
-    		<li><router-link to="home">返回顶部</router-link></li>
+    		<li @click="go"><router-link to="home">返回顶部</router-link></li>
     	</ul>
     </div>
     <div class="foot">
@@ -72,6 +72,41 @@ export default {
     return {
     	
     }
+  },
+  methods:{
+  	go:function(destination=0,duration=200,easing='linear',callback){
+				let easings={
+					linear(t){
+						return t;
+					}
+				};
+				function checkElement() {
+			  // chrome,safari及一些浏览器对于documentElemnt的计算标准化,reset的作用
+			  document.documentElement.scrollTop += 1;
+			  let elm =
+			   document.documentElement.scrollTop !== 0
+			    ? document.documentElement
+			    : document.body;
+			  document.documentElement.scrollTop -= 1;
+			  return elm;
+			 }
+			 
+			 let element = checkElement(); 
+			 let start = element.scrollTop; // 当前滚动距离
+			 let startTime = Date.now(); // 当前时间
+			 function scroll() { // 滚动的实现
+			  let now = Date.now();
+			  let time = Math.min(1, (now - startTime) / duration);
+			  let timeFunction = easings[easing](time);
+			  element.scrollTop = timeFunction * (destination - start) + start;
+			 	
+			  if (element.scrollTop === destination) {
+			   callback; // 此次执行回调函数
+			   return;
+			  }
+			 }
+			 scroll();
+			}
   }
 }
 </script>

@@ -71,7 +71,7 @@
     		</dl>
     		<div class="num">
     			<p>购买数量</p>
-    			<p><button>-</button><span>1</span><button>+</button></p>
+    			<p><button @click="cut">-</button><span v-model="num">{{num}}</span><button @click="plus">+</button></p>
     		</div>
     	</div>
     	<div class="foot">
@@ -79,6 +79,7 @@
     			<li @click="gocar">
     				<img src="static/img/cart_b.png"/>
     				<p>购物车</p>
+    				<p v-model="count" id="count" v-show="show">{{count}}</p>
     			</li>
     			<li @click="buy">立即购买</li>
     			<li @click="buy">加入购物车</li>
@@ -91,7 +92,9 @@
 <script>
 import axios from 'axios'
 import Littlemenu from "@/components/Littlemenu"
+import {setCookie,getCookie} from '../assets/cookie.js'
 
+setCookie('count',0) //初始化存储中商品数量
 export default {
 	components:{
 		Littlemenu
@@ -101,11 +104,76 @@ export default {
     	return {
     		isshow:false,
     		isbuy:false,
-      		arr:[],
-      		ids:[],
-      		content:{}
+    		show:false,
+      	arr:[],
+      	ids:[],
+      	content:{},
+      	count:"",
+      	time:0,
+      	num:1,
+      	obj:{}
     	}
   	},
+  	created () {
+		var id=this.$route.params.id;
+		var that=this;
+		if (id.indexOf("p")>=0) {
+		  	axios.get("static/json/puersheng.json").then(function(res){
+					that.arr=res.data;
+					for (var i=0 ; i<that.arr.length; i++) {
+						that.ids.push(that.arr[i].id);
+					}
+					var index=that.ids.indexOf(id);
+					that.content=that.arr[index];
+	//				console.log(typeof that.content)
+			  	})
+			}else if (id.indexOf("s")>=0) {
+				axios.get("static/json/puersu.json").then(function(res){
+					that.arr=res.data;
+					for (var i=0 ; i<that.arr.length; i++) {
+						that.ids.push(that.arr[i].id);
+					}
+					var index=that.ids.indexOf(id);
+					that.content=that.arr[index];
+			  	})
+			}else if (id.indexOf("h")>=0) {
+				axios.get("static/json/black.json").then(function(res){
+					that.arr=res.data;
+					for (var i=0 ; i<that.arr.length; i++) {
+						that.ids.push(that.arr[i].id);
+					}
+					var index=that.ids.indexOf(id);
+					that.content=that.arr[index];
+			  	})
+			}else if (id.indexOf("a")>=0) {
+				axios.get("static/json/flowers.json").then(function(res){
+					that.arr=res.data;
+					for (var i=0 ; i<that.arr.length; i++) {
+						that.ids.push(that.arr[i].id);
+					}
+					var index=that.ids.indexOf(id);
+					that.content=that.arr[index];
+			  	})
+			}else if (id.indexOf("v")>=0) {
+				axios.get("static/json/green.json").then(function(res){
+					that.arr=res.data;
+					for (var i=0 ; i<that.arr.length; i++) {
+						that.ids.push(that.arr[i].id);
+					}
+					var index=that.ids.indexOf(id);
+					that.content=that.arr[index];
+			  	})
+			}else if (id.indexOf("t")>=0) {
+				axios.get("static/json/set.json").then(function(res){
+					that.arr=res.data;
+					for (var i=0 ; i<that.arr.length; i++) {
+						that.ids.push(that.arr[i].id);
+					}
+					var index=that.ids.indexOf(id);
+					that.content=that.arr[index];
+			  	})
+			}
+		},
   	methods:{
 	  	cli(){
 	  		this.isshow=!this.isshow;
@@ -113,76 +181,56 @@ export default {
 	  	back(){
 	  		this.$router.go(-1);
 	  	},
-	  	gocar(){
-	  		this.$router.push("/hello/shoppingCar")
-	  	},
+	  	//购物车添加
 	  	buy(){
-	  		this.isbuy=true;
+	  		this.count=getCookie("count")//给商品数量赋初值
+	  		this.isbuy=true;                          //菜单显示
+	  		this.show=true,                          //购物车商品数量显示
+	  		this.time++;                                //点击添加购物车额的数量
+	  		if (this.time%2==0) {
+	  			this.count++;                          //商品数量+1
+	  			setCookie("count",this.count);               //存到本地
+	  			this.count=getCookie("count")               //更新商品数量初值
+	  			
+	  			var is=getCookie("is");
+	  			is=true;
+	  			setCookie("is",is)
+	  			//传入服务器
+	  			let obj={'name':this.content.name,'price':this.content.price,'src':this.content.src,'num':this.num}
+		  		axios.post("http://localhost:6500	/product",obj,{
+		  			headers:{'Content-Type':'application/json'}
+		  		})
+		  		.then(function(res){
+//		  			console.log(res)
+		  		})
+	  			.catch(function(err){
+	  				console.log(err)
+	  			})
+	  		}
+	  		
+	  	},
+	  	gocar(){
+	  		var is=getCookie("is")
+	  		if (is=="false") {
+	  			this.$router.push("/hello/shoppingCar")
+	  		}else{
+	  			this.$router.push("/car")
+	  		}
 	  	},
 	  	close(){
 	  		this.isbuy=false;
+	  	},
+	  	cut(){
+	  		this.num--;
+	  		if (this.num<1) {
+	  			this.num=1
+	  		}
+	  	},
+	  	plus(){
+	  		this.num++;
+	  		setCookie("num",this.num)
 	  	}
-  	},
-  	created () {
-		var id=this.$route.params.id;
-		var that=this;
-		if (id.indexOf("p")>=0) {
-		  	axios.get("static/json/puersheng.json").then(function(res){
-				that.arr=res.data;
-				for (var i=0 ; i<that.arr.length; i++) {
-					that.ids.push(that.arr[i].id);
-				}
-				var index=that.ids.indexOf(id);
-				that.content=that.arr[index];
-//				console.log(typeof that.content)
-		  	})
-		}else if (id.indexOf("s")>=0) {
-			axios.get("static/json/puersu.json").then(function(res){
-				that.arr=res.data;
-				for (var i=0 ; i<that.arr.length; i++) {
-					that.ids.push(that.arr[i].id);
-				}
-				var index=that.ids.indexOf(id);
-				that.content=that.arr[index];
-		  	})
-		}else if (id.indexOf("h")>=0) {
-			axios.get("static/json/black.json").then(function(res){
-				that.arr=res.data;
-				for (var i=0 ; i<that.arr.length; i++) {
-					that.ids.push(that.arr[i].id);
-				}
-				var index=that.ids.indexOf(id);
-				that.content=that.arr[index];
-		  	})
-		}else if (id.indexOf("a")>=0) {
-			axios.get("static/json/flowers.json").then(function(res){
-				that.arr=res.data;
-				for (var i=0 ; i<that.arr.length; i++) {
-					that.ids.push(that.arr[i].id);
-				}
-				var index=that.ids.indexOf(id);
-				that.content=that.arr[index];
-		  	})
-		}else if (id.indexOf("v")>=0) {
-			axios.get("static/json/green.json").then(function(res){
-				that.arr=res.data;
-				for (var i=0 ; i<that.arr.length; i++) {
-					that.ids.push(that.arr[i].id);
-				}
-				var index=that.ids.indexOf(id);
-				that.content=that.arr[index];
-		  	})
-		}else if (id.indexOf("t")>=0) {
-			axios.get("static/json/set.json").then(function(res){
-				that.arr=res.data;
-				for (var i=0 ; i<that.arr.length; i++) {
-					that.ids.push(that.arr[i].id);
-				}
-				var index=that.ids.indexOf(id);
-				that.content=that.arr[index];
-		  	})
-		}
-	}
+  	}
 }
 </script>
 
@@ -220,9 +268,6 @@ a {
 	border-radius: 50%;
 	background: #5b5b5b;
 	display: inline-block;
-}
-#little{
-	top: 40px;
 }
 .detailMain{
 	width: 100%;
@@ -389,6 +434,7 @@ table tr td:nth-child(1){
 	border-top: 1px solid #eeeeee;
 	opacity: 0.9;
 	padding-top: 3px;
+	position: relative;
 }
 .foot li:nth-child(1) img{
 	width: 15%;
@@ -402,5 +448,17 @@ table tr td:nth-child(1){
 	background: #fb6e52;
 	color: white;
 	line-height: 40px;
+}
+#count{
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	border: 1px solid #ed5564;
+	position: absolute;
+	right: 18px;
+	top: 4px;
+	color: #ed5564;
+	text-align: center;
+	line-height: 12px;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="loaded">
   	<div class="cartop">
-    	<p><img src="static/img/set_b.png"/></p>
+    	<p><img src="static/img/set_b.png" @click="set" /></p>
     	<p>我的商城</p>
     	<ul @click="cli">
     		<li></li>
@@ -103,6 +103,9 @@ export default {
   methods:{
   	cli(){
   		this.isshow=!this.isshow;
+  	},
+  	set(){
+  		this.$router.push("setting");
   	}
   }
 }
@@ -206,7 +209,7 @@ a {
 	position: relative;
 	top: 2px;
 }
-.nav p span{
+.p span{
 	font-size: 12px;
 	color: #999999;
 	float: right;

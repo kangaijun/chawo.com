@@ -22,6 +22,11 @@ import Wulong from '@/components/Wulong'
 import Lv from '@/components/Lv'
 import Search from '@/components/Search'
 import Loaded from '@/components/Loaded'
+import Setting from '@/components/Setting'
+import Telload from '@/components/Telload'
+import Car from '@/components/Car'
+import List from '@/components/List'
+import Filter from '@/components/Filter'
 
 Vue.use(Router)
 
@@ -54,6 +59,16 @@ export default new Router({
       		path: 'loaded',
       		name: 'Loaded',
       		component: Loaded
+      	},
+      	{
+      		path: 'setting',
+      		name: 'Setting',
+      		component: Setting
+      	},
+      	{
+      		path: 'list',
+      		name: 'List',
+      		component: List
       	}
       ]
     },
@@ -145,6 +160,21 @@ export default new Router({
     	path: '/detail/:id',
       name: 'Detail',
       component: Detail
+   },
+   {
+    	path: '/telload',
+      name: 'Telload',
+      component: Telload
+   },
+   {
+    	path: '/car',
+      name: 'Car',
+      component: Car
+   },
+   {
+    	path: '/filter',
+      name: 'Filter',
+      component: Filter
     }
   ]
 })

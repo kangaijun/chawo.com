@@ -1,11 +1,11 @@
 <template>
   <div class="top">
     <input type="text" id="search" placeholder="大益" @click="search" />
-	<ul @click="deng">
-		<li></li>
-		<li></li>
-		<li></li>
-	</ul>
+		<ul @click="deng">
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
   </div>
 </template>
 

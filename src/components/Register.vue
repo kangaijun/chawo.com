@@ -2,7 +2,7 @@
   <div class="register">
     <div class="retop">
     	<p><img src="static/img/home_b.png"  @click="reToHome"/></p>
-    	<p>注册</p>
+    	<p>会员注册</p>
     	<p @click="load">登录</p>
     </div>
     <div class="remain">
