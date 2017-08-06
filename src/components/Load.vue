@@ -76,6 +76,7 @@ export default {
 								headers:{'Content-Type':'application/json'}
 	    		})
 	        .then((res)=>{
+	        			setCookie("uid",res.data.uid)
 	        			this.show=true;
 	              setCookie('username',this.username,1000*60);
 	              setTimeout(function(){

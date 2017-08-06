@@ -56,7 +56,7 @@ export default {
 			var str=getCookie("tel");
 			var a=str.split("=");
 			this.username=a[0];
-			console.log(this.username)
+//			console.log(this.username)
 			if(this.username == ""){
 				this.tishi="请输入手机号码";
   			this.isTishi=true;
@@ -72,7 +72,7 @@ export default {
 	        axios.post('http://localhost:6500/load',data,{
 	        	headers:{'Content-Type':'application/json'}
 	        }).then((res)=>{
-	        		console.log(res)
+//	        		console.log(res)
 	            this.username = '';
 	            this.password = '';
 	            this.isshow=true;

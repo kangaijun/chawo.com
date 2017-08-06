@@ -108,14 +108,20 @@ export default {
       	arr:[],
       	ids:[],
       	content:{},
+      	proobj:{},
       	count:"",
       	time:0,
       	num:1,
-      	obj:{}
+      	obj:{},
+      	proid:{},
+      	uid:"",
+      	pid:"",
+      	arrdataStr:"",
+      	isblank:false
     	}
   	},
   	created () {
-		var id=this.$route.params.id;
+		var id=this.$route.params.id;   //获取点击商品的ID，并将商品数据渲染到页面上
 		var that=this;
 		if (id.indexOf("p")>=0) {
 		  	axios.get("static/json/puersheng.json").then(function(res){
@@ -176,10 +182,10 @@ export default {
 		},
   	methods:{
 	  	cli(){
-	  		this.isshow=!this.isshow;
+	  		this.isshow=!this.isshow;  //小菜单的显示
 	  	},
 	  	back(){
-	  		this.$router.go(-1);
+	  		this.$router.go(-1);  //返回上一页
 	  	},
 	  	//购物车添加
 	  	buy(){
@@ -191,24 +197,46 @@ export default {
 	  			this.count++;                          //商品数量+1
 	  			setCookie("count",this.count);               //存到本地
 	  			this.count=getCookie("count")               //更新商品数量初值
-	  			
+	  			//添加商品，改变购物车的状态
 	  			var is=getCookie("is");
 	  			is=true;
 	  			setCookie("is",is)
-	  			//传入服务器
-	  			let obj={'name':this.content.name,'price':this.content.price,'src':this.content.src,'num':this.num}
-		  		axios.post("http://localhost:6500	/product",obj,{
-		  			headers:{'Content-Type':'application/json'}
-		  		})
-		  		.then(function(res){
-//		  			console.log(res)
-		  		})
-	  			.catch(function(err){
-	  				console.log(err)
-	  			})
+	  			
+	  			//获得用户ID
+	  			this.uid=getCookie("uid");
+	  			this.pid=this.$route.params.id;
+	  			// 通过用户Id获取用户信息
+	  			axios.get("http://localhost:6500/load/"+this.uid).then(function(res){
+							if (res.data.product==""|| !res.data.product) {
+								this.addArr();
+								// 将接收的值转成字符串
+              	this.arrdataStr=JSON.stringify(this.proobj);
+							}else{
+								this.proobj=JSON.parse(res.data.product);
+//          		console.log( this.proobj)
+            		this.addArr()
+            	 // 将接收的值转成字符串
+            		this.arrdataStr=JSON.stringify(this.proobj)
+							}
+							//修改  如果内容修改了将内容重新传到后台
+		          axios.put("http://localhost:6500/load/"+this.uid,{product:this.arrdataStr}).then((res)=>{   
+		          	
+		          })
+	  			}.bind(this))
 	  		}
 	  		
 	  	},
+	  	//定义一个方法返回要传的内容
+	  	addArr(){
+	  		return this.proobj["id"+this.pid]={
+	  			"id":this.pid,
+	  			"num":this.num,
+	  			"price":this.content.price,
+          "name":this.content.name,
+          "img":this.content.src
+	  		}
+	  	},
+	  	//购物车跳转且判断是否为空
 	  	gocar(){
 	  		var is=getCookie("is")
 	  		if (is=="false") {
@@ -220,12 +248,14 @@ export default {
 	  	close(){
 	  		this.isbuy=false;
 	  	},
+	  	//商品数量减少
 	  	cut(){
 	  		this.num--;
 	  		if (this.num<1) {
 	  			this.num=1
 	  		}
 	  	},
+	  	//商品数量增加
 	  	plus(){
 	  		this.num++;
 	  		setCookie("num",this.num)

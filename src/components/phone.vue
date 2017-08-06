@@ -10,7 +10,7 @@
 			<p @click="test" id="yan" v-model="str">{{str}}</p>
 		</div>
 		<p id="agree"><checkbox></checkbox>同意 <a href="">用户注册协议</a></p>
-  	<input type="submit" id="sub" value="获取验证码" @click="get" />
+  	<input type="submit" id="sub" value="设置密码" @click="get" />
   	<p>绑定手机不收任何费用，一个手机只能绑定一个账号，若需修改或解除已绑定的手机，请登录商城PC端进行操作。</p>
   	<div class="tishi" v-show="isTishi">
 			<p v-model="tishi">{{tishi}}</p>
@@ -32,10 +32,13 @@ export default {
     return {
       username:"",
       yan:"",
-      str:"34th",
+      str:"",
       tishi:'',
       isTishi:false
     }
+  },
+  created(){
+  	this.test();
   },
   methods:{
   	test(){

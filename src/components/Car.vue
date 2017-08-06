@@ -14,7 +14,7 @@
     	<!--小菜单-->
     	<littlemenu v-show="isshow" style="z-index: 20;"></littlemenu>
     	<div class="web">
-    		<input type="checkbox" name="" id="" value="" checked="checked" style="margin-right: 10px;" />
+    		<input type="checkbox" name="" class="ch" value="" checked="checked" style="margin-right: 10px;" />
     		<img src="static/img/store_b.png"/>
     		<span>茶窝网</span>
     	</div>
@@ -28,9 +28,9 @@
 	    		<li v-for="(item,index) in items">
 	    			<div class="buy">
 			    		<img src="static/img/del_b.png" id="close" @click="del(index)" />
-			    		<input type="checkbox" name="" id="" value="" checked="checked" />
+			    		<input type="checkbox" name="" class="ch" value="" checked="checked" />
 			    		<dl>
-			    			<dt><img v-bind:src=item.src /></dt>
+			    			<dt><img v-bind:src=item.img /></dt>
 			    			<dd>
 			    				<p>{{item.name}}</p>
 			    				<p>￥{{item.price}} <p id="num"><button @click="jian(index)">-</button><span>{{item.num}}</span><button @click="jia(index)">+</button></p></p>
@@ -47,7 +47,7 @@
     	</div>
     	<!--计算总金额-->
     	<div class="sum" v-show="no">
-    		<input type="checkbox" name="" id="" value="" checked="checked" />
+    		<input type="checkbox" name="" id="check" value="" checked="checked" @click="all" />
     		<p>合计总金额：<span v-model="zong">￥{{zong}}</span></p>
     		<button>确认信息</button>
     	</div>
@@ -70,26 +70,25 @@ export default {
       isshow:false,
       is:true,
       no:false,
-      isblank:false,
       items:[],
-      zong:0
+      zong:0,
+      uid:"",
+      gaiItems:[]
     }
   },
   created(){
   	var that=this;
-  	//获取商品数据
-  	axios.get("http://localhost:6500	/product").then(function(res){
-  		if (res.data.length==0) {
-  			that.isblank=false;
-  			setCookie("is",that.isblank);
-  		}else{
-  			that.items=res.data;
-	  		for (var i=0; i<that.items.length; i++) {
-	  			that.zong+=that.items[i].price*that.items[i].num
-	  		}
-  		}
-  		
-  	})
+  	//获取用户ID
+  	this.uid=getCookie("uid");
+  	//调取该条数据
+  	axios.get("http://localhost:6500/load/"+this.uid).then(function(res){
+  		//放入数组渲染页面
+  			this.items=JSON.parse(res.data.product);
+  			this.add()
+	}.bind(this))
+	.catch(function(err){
+		console.log(err)
+	})
   },
   mounted(){
   /*页面挂载获取cookie，如果存在username的cookie，则跳转到主页，不需登录*/
@@ -119,21 +118,49 @@ export default {
   		if (this.items[index].num<1) {
   			this.items[index].num=1
   		}
+			this.xiu(this.items);
+			this.add()
   	},
   	jia(index){
   		this.items[index].num++;
+  			this.xiu(this.items);
+  			this.add()
   	},
   	del(index){
-  		var lis=document.querySelectorAll("#products li");
-  		var data={'id':this.items[index].id}
-  		axios.delete("http://localhost:6500	/product/"+this.items[index].id,data,{
-  			headers:{'Content-Type':'application/json'}
-  		}).then(function(){
-  			lis[index].remove();
-  			var is=getCookie("is");
-	  			is=false;
-	  			setCookie("is",is)
+  			delete this.items["id"+this.items[index].id];
+  			//传入修改后的数组
+  			this.xiu(this.items);
+  			//重新计算价格
+  			this.add()
+  	},
+  	//定义计算价格的函数
+  	add(){
+  		var sum=0;//价格总数
+  		for (var k in this.items) {
+  			sum+=this.items[k].num * this.items[k].price;
+  		}
+  		this.zong=sum;
+  		this.xiu(this.items)
+  	},
+  	//数据改变执行
+  	xiu(arr){
+  		this.gaiItems=JSON.stringify(arr); //传入修改后的数组
+  		//传入
+  		axios.put("http://localhost:6500/load/"+this.uid,{
+  			product:this.gaiItems
+  		}).then(function(res){
+  			this.get();
+  		}.bind(this))
+  		.catch(function(err){
+  			console.log(err)
   		})
+  	},
+  	//获取数据
+  	get(){
+  		axios.get("http://localhost:6500/load/" + this.uid).then((res) => {
+	      //从json对象中解析出json字符串
+	      this.items = JSON.parse(res.data.product);
+	    })
   	}
   }
 }
