@@ -43,13 +43,13 @@
     	<!--未登录时提示-->
     	<div class="tishi" v-show="is">
     		<p>结算购物车中的商品，需先登录商城</p>
-    		<button style="margin-right: 6px;" @click="load">登录</button @click="re"><button>注册</button>
+    		<button style="margin-right: 6px;" @click="load">登录</button @click="re"><button @click="regis">注册</button>
     	</div>
     	<!--计算总金额-->
     	<div class="sum" v-show="no">
     		<input type="checkbox" name="" id="check" value="" checked="checked" @click="all" />
     		<p>合计总金额：<span v-model="zong">￥{{zong}}</span></p>
-    		<button>确认信息</button>
+    		<button id="con">确认信息</button>
     	</div>
     </div>
   </div>
@@ -110,6 +110,9 @@ export default {
   	load(){
   		this.$router.push("/load")
   	},
+  	regis(){
+  		this.$router.push("/register")
+  	},
   	re(){
   		this.$router.push("/register")
   	},
@@ -161,6 +164,9 @@ export default {
 	      //从json对象中解析出json字符串
 	      this.items = JSON.parse(res.data.product);
 	    })
+  	},
+  	all(){
+  		$(".ch").prop("checked",$("#check").prop("checked"));
   	}
   }
 }
