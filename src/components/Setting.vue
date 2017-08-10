@@ -49,6 +49,13 @@
     	</ul>
     </div>
     <div class="black"></div>
+    <!--确定退出-->
+    	<div class="marsk" v-show="confirm">
+    		<div class="que">
+    			<p>确认退出？</p>
+    			<button style="margin-right: 10px;margin-left: -10px;" @click="conf">确定</button><button @click="cancel">取消</button>
+    		</div>
+    	</div>
     </div>
   </div>
 </template>
@@ -65,7 +72,8 @@ export default {
   	data () {
     	return {
     		isshow:false,
-    		name:""
+    		name:"",
+    		confirm:false
     	}
  	},
  	methods:{
@@ -76,9 +84,16 @@ export default {
 	  		this.$router.go(-1);
 	  	},
 	  	signout(){
-	  		/*删除cookie*/
-            delCookie('username');
-            this.$router.push('/hello/home')
+	  		this.confirm=true;
+	  	},
+	  	conf(){
+    		/*删除cookie*/
+        delCookie('username');
+        this.$router.push('/hello/home')
+    		this.confirm=false;
+	  	},
+	  	cancel(){
+	  		this.confirm=false;
 	  	}
 	},
 	mounted(){
@@ -104,6 +119,36 @@ a {
   text-decoration: none;
   color: #444444;
   font-size: 12px;
+}
+.marsk{
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.6);
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 10;
+}
+.que{
+	width: 50%;
+	height: 65px;
+	color: deepskyblue;
+	background: #f5f5f5;
+	text-align: center;
+	margin: 255px auto;
+	border-radius: 5px;
+}
+.que p{
+	line-height: 30px;
+	text-indent: -3px;
+	padding-top: 5px;
+}
+.que button{
+	padding: 4px;
+	background: none;
+	border: none;
+	border-radius: 5px;
+	background: #f5f5f5;
 }
 .cartop{
 	width: 100%;

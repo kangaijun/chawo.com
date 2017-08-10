@@ -7,8 +7,11 @@
     </div>
     <div class="remain">
     	<ul id="renav">
-    		<li><router-link to="/register/putong" active-class="active" ><img src="static/img/reg_r1.png"/> 普通注册</router-link></li>
-    		<li><router-link to="/register/phone" active-class="active" ><img src="static/img/regm_r1.png" /> 手机注册</router-link></li>
+    		<li v-for="(item,index) in arr" @click="toggle(index)">
+    			<router-link :to=item.path>
+    				<img :src="imgUrl[active==index?index:index+2]" /> {{item.title}}
+    			</router-link>
+    		</li>
     	</ul>
     	<router-view></router-view>
     </div>
@@ -20,7 +23,20 @@ export default {
   name: 'register',
   data () {
     return {
-      
+    	active:0,
+    	arr:[
+    		{
+    			path:"/register/putong",
+    			title:"普通注册"
+    		},
+    		{
+    			path:"/register/phone",
+    			title:"手机注册"
+    		}
+    	],
+    	//图片地址数组
+      imgUrl:["static/img/reg_r2.png","static/img/regm_r2.png",
+      							"static/img/reg_r1.png","static/img/regm_r1.png"]
     }
   },
   methods:{
@@ -28,7 +44,10 @@ export default {
   		this.$router.push("/hello/home");
   	},
   	load(){
-  		this.$router.push("/load");
+  		this.$router.push("/hello/load");
+  	},
+  	toggle(index){
+  		this.active=index;
   	}
   }
 }
@@ -84,10 +103,11 @@ a {
 	font-size: 12px;
 }
 #renav li img{
+	width: 13px;
 	position: relative;
 	top: 2px;
 }
-.active{
+.router-link-active{
 	color: #ed5564;
 	border-bottom: 2px solid #ed5564;
 }

@@ -14,12 +14,13 @@ export default {
   name: 'top',
   data(){
   	return{
-  		
+  		arr:[]
   	}
   },
   methods:{
   	search(){
-  		this.$router.push("/search")
+  		this.$router.push("/search");
+  		localStorage.setItem("history",JSON.stringify(this.arr));
   	},
   	deng(){
   		this.$router.push("/load")

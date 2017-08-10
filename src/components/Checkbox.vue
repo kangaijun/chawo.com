@@ -1,3 +1,4 @@
+<!--自定义样式复选框组件-->
 <template>
   <div class="checkbox">
 		<input type="checkbox" id="check" checked="checked" />

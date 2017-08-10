@@ -1,31 +1,99 @@
 <template>
   <div class="home">
+  	<!--头部-->
     <top></top>
+    <!--轮播-->
     <carousel></carousel>
+    <!--导航-->
     <homenav></homenav>
     <div class="show">
     	<img src="static/img/show.jpg"/>
     </div>
+    <!--商品展示-->
+    <!--javascript:void(0):取消a标签的默认链接-->
+    <a   href="javascript:void(0)"  v-show="scroll" @click="tiao()">
+      <img src="static/img/gotop_b.png" alt="" class="gotop">
+    </a>
     <div class="main">
     	<div class="divide">普洱生茶</div>
-    	<puersheng></puersheng>
+    	<div class="puersheng">
+		    <ul>
+		    	<li v-for="item in items">
+		    		<router-link :to=item.path>
+		    			<img v-bind:src=item.src />
+		    			<p>{{item.name}}</p>
+		    			<p>￥{{item.price}}</p>
+		    		</router-link>
+		    	</li>
+		    </ul>
+		  </div>
     	<div class="divide">普洱熟茶</div>
-    	<puershu></puershu>
+    	<div class="puersheng">
+		    <ul>
+		    	<li v-for="item in items1">
+		    		<router-link :to=item.path>
+		    			<img v-bind:src=item.src />
+		    			<p>{{item.name}}</p>
+		    			<p>￥{{item.price}}</p>
+		    		</router-link>
+		    	</li>
+		    </ul>
+		  </div>
     	<div class="divide">红茶</div>
-    	<blacktea></blacktea>
+    	<div class="puersheng">
+		    <ul>
+		    	<li v-for="item in items2">
+		    		<router-link :to=item.path>
+		    			<img v-bind:src=item.src />
+		    			<p>{{item.name}}</p>
+		    			<p>￥{{item.price}}</p>
+		    		</router-link>
+		    	</li>
+		    </ul>
+		  </div>
     	<div class="divide">花草茶</div>
-    	<flower></flower>
+    	<div class="puersheng">
+		    <ul>
+		    	<li v-for="item in items3">
+		    		<router-link :to=item.path>
+		    			<img v-bind:src=item.src />
+		    			<p>{{item.name}}</p>
+		    			<p>￥{{item.price}}</p>
+		    		</router-link>
+		    	</li>
+		    </ul>
+		  </div>
     	<div class="divide">绿茶</div>
-    	<greentea></greentea>
+    	<div class="puersheng">
+		    <ul>
+		    	<li v-for="item in items4">
+		    		<router-link :to=item.path>
+		    			<img v-bind:src=item.src />
+		    			<p>{{item.name}}</p>
+		    			<p>￥{{item.price}}</p>
+		    		</router-link>
+		    	</li>
+		    </ul>
+		  </div>
     	<div class="divide">茶具</div>
-    	<teaset></teaset>
+    	<div class="puersheng">
+		    <ul>
+		    	<li v-for="item in items5">
+		    		<router-link :to=item.path>
+		    			<img v-bind:src=item.src />
+		    			<p>{{item.name}}</p>
+		    			<p>￥{{item.price}}</p>
+		    		</router-link>
+		    	</li>
+		    </ul>
+		  </div>
     </div>
     <div class="bottomNav">
     	<ul>
     		<li><router-link to="/load">登录</router-link></li><span>|</span>
     		<li><router-link to="/register">注册</router-link></li><span>|</span>
     		<li><router-link to="/load">反馈</router-link></li><span>|</span>
-    		<li @click="go"><router-link to="home">返回顶部</router-link></li>
+    		<li @click="tiao()"><router-link to="home">返回顶部</router-link></li>
     	</ul>
     </div>
     <div class="foot">
@@ -48,65 +116,86 @@
 import Top from '@/components/Top'
 import Carousel from '@/components/Carousel'
 import Homenav from '@/components/Homenav'
-import Puersheng from '@/components/Puersheng'
-import Puershu from '@/components/Puershu'
-import Blacktea from '@/components/Blacktea'
-import Flower from '@/components/Flower'
-import Greentea from '@/components/Greentea'
-import Teaset from '@/components/Teaset'
+import Detail from '@/components/Detail'
+import axios from 'axios'
 
 export default {
 	components:{
 		Top,
 		Carousel,
 		Homenav,
-		Puersheng,
-		Puershu,
-		Blacktea,
-		Flower,
-		Greentea,
-		Teaset
+		Detail
 	},
   name: 'home',
   data () {
     return {
-    	
+    	items:[],
+    	items1:[],
+    	items2:[],
+    	items3:[],
+    	items4:[],
+    	items5:[],
+    	scroll:false
     }
   },
+  created(){
+  	//数据调取
+  	var that=this;
+  	axios.get("static/json/puersheng.json").then(function(res){
+			that.items=res.data;
+  	});
+  	axios.get("static/json/puersu.json").then(function(res){
+			that.items1=res.data;
+  	});
+  	axios.get("static/json/black.json").then(function(res){
+			that.items2=res.data;
+  	});
+  	axios.get("static/json/flowers.json").then(function(res){
+			that.items3=res.data;
+  	});
+  	axios.get("static/json/green.json").then(function(res){
+			that.items4=res.data;
+  	});
+  	axios.get("static/json/set.json").then(function(res){
+			that.items5=res.data;
+  	})
+  },
+  mounted(){
+    // 1 先绑定 scroll 事件
+    var map = {};
+    window.onhashchange = function() {
+        document.body.scrollTop = 0;
+    }
+    /*  2 再屏蔽掉浏览器自动恢复滚动位置行为带来的影响
+    a 在 hashchange 时强制 document.body.scrollTop = 0
+    b 在 scroll 事件里面, 当 document.body.scrollTop = 0 的时候不做 存操作.*/
+    window.onscroll = function() {
+      if (document.body.scrollTop) {
+         // 存
+          map[location.hash] = document.body.scrollTop;
+      } else {
+        var timer = null;
+        //3 在读操作里面, 设置一个定时任务, 去判断 document.body.scrollTop 的值和你保存的位置是不是相同的
+        timer = setInterval(function(){
+        		if (document.body.scrollTop == map[location.hash]) {
+                clearInterval(timer);
+            } else {
+                document.body.scrollTop = map[location.hash];
+            }
+        }, 20);
+      }
+    };
+     window.addEventListener('scroll', this.handleScroll);
+  },
   methods:{
-  	go:function(destination=0,duration=200,easing='linear',callback){
-				let easings={
-					linear(t){
-						return t;
-					}
-				};
-				function checkElement() {
-			  // chrome,safari及一些浏览器对于documentElemnt的计算标准化,reset的作用
-			  document.documentElement.scrollTop += 1;
-			  let elm =
-			   document.documentElement.scrollTop !== 0
-			    ? document.documentElement
-			    : document.body;
-			  document.documentElement.scrollTop -= 1;
-			  return elm;
-			 }
-			 
-			 let element = checkElement(); 
-			 let start = element.scrollTop; // 当前滚动距离
-			 let startTime = Date.now(); // 当前时间
-			 function scroll() { // 滚动的实现
-			  let now = Date.now();
-			  let time = Math.min(1, (now - startTime) / duration);
-			  let timeFunction = easings[easing](time);
-			  element.scrollTop = timeFunction * (destination - start) + start;
-			 	
-			  if (element.scrollTop === destination) {
-			   callback; // 此次执行回调函数
-			   return;
-			  }
-			 }
-			 scroll();
-			}
+  	tiao(){
+  		$("html,body").animate({
+            scrollTop:0
+          },"slow")
+  	},
+  	handleScroll(){
+      this.scroll=document.body.scrollTop>500;
+   }
   }
 }
 </script>
@@ -140,6 +229,36 @@ a {
 	font-size: 12px;
 	text-indent: 6px;
 	margin-top: 10px;
+}
+.puersheng ul{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+}
+.puersheng li{
+	width: 45%;
+	background: white;
+	border-radius: 5px;
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-left: 1%;
+}
+.puersheng li img{
+	width: 100%;
+	border-radius: 5px;
+}
+.puersheng li p{
+	margin: 0 5px;
+	font-size: 12px;
+}
+.puersheng li p:nth-child(2){
+	padding-bottom: 10px;
+	border-bottom: 1px solid #eeeeee;
+}
+.puersheng li p:nth-child(3){
+	padding: 5px 0;
+	color: #db4453;
+	font-weight: bold;
 }
 .bottomNav{
 	width: 100%;
@@ -197,5 +316,12 @@ a {
 }
 .foot li p:nth-child(2){
 	font-size: 12px;
+}
+.gotop{
+	width: 30px;
+	position: fixed;
+	right: 12px;
+	bottom: 100px;
+	opacity: 0.8;
 }
 </style>

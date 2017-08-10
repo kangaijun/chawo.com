@@ -14,10 +14,12 @@
 		<p id="agree"><checkbox></checkbox>显示密码</p>
 		<input type="submit" id="sub" value="完 成" @click="register" />
     	<div class="loser" v-show="isshow">注册成功</div>
-			<div class="tishi" v-show="isTishi">
-				<p v-model="tishi">{{tishi}}</p>
-				<button @click="hide">确定</button>
-			</div>
+			<div class="marsk" v-show="confirm">
+    		<div class="que">
+    			<p v-model="tishi">{{tishi}}</p>
+    			<button style="margin-right: 5px;" @click="conf">确定</button>
+    		</div>
+	   	</div>
     </div>
   </div>
 </template>
@@ -38,7 +40,7 @@ export default {
      		password:"",
      		username:"",
      		tishi:'',
-      	isTishi:false
+      	confirm:false
     	}
   },
   methods:{
@@ -48,8 +50,8 @@ export default {
   	load(){
   		this.$router.push("/load")
   	},
-  	hide(){
-  		this.isTishi=false;
+  	conf(){
+  		this.confirm=false;
   	},
   	register(){
   		var mReg=/^\w{6,20}$/g;
@@ -59,13 +61,13 @@ export default {
 //			console.log(this.username)
 			if(this.username == ""){
 				this.tishi="请输入手机号码";
-  			this.isTishi=true;
+  			this.confirm=true;
 			}else if(this.password == ""){
         	this.tishi="请输入密码";
-  				this.isTishi=true;
+  				this.confirm=true;
     	}else if(!mReg.test(this.password)){
     			this.tishi="密码格式不正确";
-  				this.isTishi=true;
+  				this.confirm=true;
     	}else{
     			$("#sub").css("background","#ed5564").css("color","white")
 	        let data = {'username':this.username,'password':this.password}
@@ -169,24 +171,31 @@ a {
 	font-size: 16px;
 	color: #555555;
 }
-.tishi{
-	width: 160px;
-	height: 52px;
-	border: 1px solid #cccccc;
-	border-radius: 5px;
-	box-shadow: 0 0 15px darkgray;
-	margin: 15px auto;
-	text-align: center;
-	padding-top: 10px;
-	position: absolute;
-	left: 25%;
-	top: 125px;
-	background: #eeeeee;
-	font-size: 12px;
+.marsk{
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.6);
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 10;
 }
-.tishi button{
-	padding: 5px;
+.que{
+	width: 65%;
+	height: 65px;
+	color: deepskyblue;
+	background: #f5f5f5;
+	text-align: center;
+	margin: 255px auto;
+	border-radius: 5px;
+}
+.que p{
+	line-height: 30px;
+}
+.que button{
+	padding: 4px;
 	background: none;
-	border: 1px solid #eeeeee;
+	border: none;
+	border-radius: 5px;
 }
 </style>

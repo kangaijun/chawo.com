@@ -12,7 +12,7 @@
     <div class="loadmain">
     	<littlemenu v-show="isshow" style="z-index: 10;"></littlemenu>
     	<div class="bg">
-    		<img src="static/img/default_user_portrait.gif" id="tu"/>
+    		<img src="static/img/default_user_portrait.gif" id="tu" class="animated bounceInDown" />
     		<p id="ming">mb2799</p>
     		<ul>
     			<li>

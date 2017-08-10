@@ -2,11 +2,11 @@
   <div class="hello">
   	<router-view></router-view>
     <ul id="tabbar">
-    	<li><router-link to="home"><img src="static/img/f4.png" /><br />首页</router-link></li>
-    	<li><router-link to="/kind"><img src="static/img/f2.png" /><br />分类</router-link></li>
+    	<li><router-link to="home"><img src="static/img/f4.png" /><br /><span>首页</span></router-link></li>
+    	<li><router-link to="/kind"><img src="static/img/f2.png" /><br /><span>分类</span></router-link></li>
     	<li><router-link to="server"><img src="static/img/f1.png" /><br /><span class="ke">客服</span></router-link></li>
-    	<li><a @click="cli"><img src="static/img/f5.png" /><br /><span class="gou">购物车</span></a></li>
-    	<li><router-link to="/load"><img src="static/img/f3.png" /><br />我的</router-link></li>
+    	<li><router-link to="shoppingCar"><img src="static/img/f5.png" /><br /><span class="gou">购物车</span></router-link></li>
+    	<li><router-link to="load"><img src="static/img/f3.png" /><br /><span>我的</span></router-link></li>
     </ul>
   </div>
 </template>
@@ -19,15 +19,6 @@ export default {
     return {
     	
     }
-  },
-  methods:{
-  	cli(){
-  		if (getCookie("is")=="false") {
-  			this.$router.push("shoppingCar")
-  		}else{
-  			this.$router.push("/car")
-  		}
-  	}
   }
 }
 </script>
@@ -64,5 +55,8 @@ a {
 .gou{
 	position: relative;
 	top: 0px;
+}
+.router-link-active{
+	color: red;
 }
 </style>

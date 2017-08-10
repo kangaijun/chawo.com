@@ -6,16 +6,18 @@
 		</div>
 		<div class="ipt">
 			<p>验证码：</p>
-			<input type="password" name="" id="pass" placeholder="请输入4位验证码" v-model="yan" />
+			<input type="text" name="" id="pass" placeholder="请输入4位验证码" v-model="yan" />
 			<p @click="test" id="yan" v-model="str">{{str}}</p>
 		</div>
 		<p id="agree"><checkbox></checkbox>同意 <a href="">用户注册协议</a></p>
-  	<input type="submit" id="sub" value="设置密码" @click="get" />
+  	<input type="submit" id="sub" value="下一步" @click="get" />
   	<p>绑定手机不收任何费用，一个手机只能绑定一个账号，若需修改或解除已绑定的手机，请登录商城PC端进行操作。</p>
-  	<div class="tishi" v-show="isTishi">
-			<p v-model="tishi">{{tishi}}</p>
-			<button @click="hide">确定</button>
-		</div>
+		<div class="marsk" v-show="confirm">
+    	<div class="que">
+    		<p v-model="tishi">{{tishi}}</p>
+    		<button style="margin-right: 5px;" @click="conf">确定</button>
+    	</div>
+	   </div>
   </div>
 </template>
 
@@ -34,13 +36,14 @@ export default {
       yan:"",
       str:"",
       tishi:'',
-      isTishi:false
+      confirm:false
     }
   },
   created(){
   	this.test();
   },
   methods:{
+  	//四位随机验证码
   	test(){
       var codeStr ="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
       var that=this;
@@ -67,24 +70,25 @@ export default {
     getCode();
     },
   	get(){
+  		//正则验证
   		var telReg=/^1[3,4,5,7,8]\d{9}$/
   		if (this.username=="") {
   			this.tishi="请输入手机号码";
-  			this.isTishi=true;
+  			this.confirm=true;
   		}else if (this.yan!=this.str) {
   			this.tishi="验证码不正确";
-  			this.isTishi=true;
+  			this.confirm=true;
   		}else if(!telReg.test(this.username)){
   			this.tishi="手机号码格式有误";
-  			this.isTishi=true;
+  			this.confirm=true;
   		}else{
   			$("#sub").css("background","#ed5564").css("color","white")
   			this.$router.push("/telload");
 				setCookie("tel",this.username)
   		}
   	},
-  	hide(){
-  		this.isTishi=false;
+  	conf(){
+  		this.confirm=false;
   	}
   }
 }
@@ -141,24 +145,31 @@ a {
 	margin-left: 10%;
 	margin-top: 20px;
 }
-.tishi{
-	width: 160px;
-	height: 52px;
-	border: 1px solid #cccccc;
-	border-radius: 5px;
-	box-shadow: 0 0 15px darkgray;
-	margin: 15px auto;
-	text-align: center;
-	padding-top: 10px;
-	position: absolute;
-	left: 25%;
-	top: 125px;
-	background: #eeeeee;
-	font-size: 12px;
+.marsk{
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.6);
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 10;
 }
-.tishi button{
-	padding: 5px;
+.que{
+	width: 65%;
+	height: 65px;
+	color: deepskyblue;
+	background: #f5f5f5;
+	text-align: center;
+	margin: 255px auto;
+	border-radius: 5px;
+}
+.que p{
+	line-height: 30px;
+}
+.que button{
+	padding: 4px;
 	background: none;
-	border: 1px solid #eeeeee;
+	border: none;
+	border-radius: 5px;
 }
 </style>

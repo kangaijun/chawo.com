@@ -5,9 +5,12 @@ import App from './App'
 import router from './router'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import Vue2Filters from 'vue2-filters'
+import Mint from 'mint-ui';
+import 'mint-ui/lib/style.css';
 
 Vue.use(VueAwesomeSwiper)
 Vue.use(Vue2Filters)
+Vue.use(Mint);
 
 Vue.config.productionTip = false
 

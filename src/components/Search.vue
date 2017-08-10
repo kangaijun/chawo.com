@@ -12,11 +12,9 @@
     	</ul>
     	<p>历史记录</p>
     	<ul id="history">
-    		<li>中茶</li>
-    		<li>大益</li>
-    		<li>紫砂</li>
+    		<li v-for="item in his">{{item}}</li>
     	</ul>
-    	<button>清空历史</button>
+    	<button @click="qing">清空历史</button>
     </div>
   </div>
 </template>
@@ -30,20 +28,29 @@ export default {
   		arr:["中茶","大益","下关","七彩云南","中茶","八角亭","紫砂"],
   		val:"",
   		is:false,
-  		sousuo:""
+  		sousuo:"",
+  		his:[],
+  		clear:[],
+  		blank:[]
   	}
+  },
+  created(){
+  	this.his=JSON.parse(localStorage.getItem("history"))
   },
   methods:{
   	back(){
   		this.$router.go(-1);
   	},
   	sou(){
-			this.$router.push({path:"/hello/list",query:{name:this.sousuo}});
+			this.$router.push({path:"/hello/list",query:{strings:this.sousuo}});
   	},
   	cli(str){
-  		this.$router.push({path:"/hello/list",query:{strings:str}});
+  		this.$router.push({path:"/hello/list",query:{name:str}});
+  	},
+  	qing(){
+		$("#history li").remove();
+		localStorage.setItem("history",JSON.stringify(this.blank))
   	}
-  	
   }
 }
 </script>
@@ -133,7 +140,7 @@ a {
 	background: #eeeeee;
 	border: none;
 	border-radius: 8px;
-	margin-top: 38px;
+	margin-top: 10px;
 	color: #555555;
 	margin-left: 16%;
 }

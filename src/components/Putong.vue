@@ -19,10 +19,12 @@
 		<p id="agree"><checkbox></checkbox>同意 <a href="">用户注册协议</a></p>
 		<input type="submit" id="sub" value="注 册" @click="register" />
 		<div class="loser" v-show="isshow">注册成功</div>
-		<div class="tishi" v-show="isTishi">
-			<p v-model="tishi">{{tishi}}</p>
-			<button @click="hide">确定</button>
-		</div>
+		<div class="marsk" v-show="isTishi">
+			<div class="que">
+				<p v-model="tishi">{{tishi}}</p>
+				<button style="margin-right: 5px;" @click="conf">确定</button>
+			</div>
+   	</div>
   </div>
 </template>
 
@@ -48,7 +50,7 @@ export default {
     }
   },
   methods:{
-  	hide(){
+  	conf(){
   		this.isTishi=false;
   	},
   	register(){
@@ -159,24 +161,31 @@ a {
 	top: 125px;
 	background: #eeeeee;
 }
-.tishi{
-	width: 160px;
-	height: 52px;
-	border: 1px solid #cccccc;
-	border-radius: 5px;
-	box-shadow: 0 0 15px darkgray;
-	margin: 15px auto;
-	text-align: center;
-	padding-top: 10px;
-	position: absolute;
-	left: 25%;
-	top: 125px;
-	background: #eeeeee;
-	font-size: 12px;
+.marsk{
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.6);
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 10;
 }
-.tishi button{
-	padding: 5px;
+.que{
+	width: 65%;
+	height: 65px;
+	color: deepskyblue;
+	background: #f5f5f5;
+	text-align: center;
+	margin: 255px auto;
+	border-radius: 5px;
+}
+.que p{
+	line-height: 30px;
+}
+.que button{
+	padding: 4px;
 	background: none;
-	border: 1px solid #eeeeee;
+	border: none;
+	border-radius: 5px;
 }
 </style>

@@ -56,6 +56,11 @@ export default new Router({
       		component: ShoppingCar
       	},
       	{
+		  		path: 'load',
+		  		name: 'Load',
+		  		component: Load
+		  	},
+      	{
       		path: 'loaded',
       		name: 'Loaded',
       		component: Loaded
@@ -128,11 +133,6 @@ export default new Router({
       		component: Lv
       	}
   		]
-  	},
-    {
-  		path: '/load',
-  		name: 'Load',
-  		component: Load
   	},
   	{
   		path: '/register',

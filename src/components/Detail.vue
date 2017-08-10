@@ -60,10 +60,10 @@
     			<td>{{content.stock}}</td>
     		</tr>
     	</table>
-    	<div class="buy" v-show="isbuy">
+    	<div class="buy animated fadeInUp" v-show="isbuy">
     		<img src="static/img/close_window.png" id="close" @click="close" />
     		<dl>
-    			<dt><img v-bind:src=content.src /></dt>
+    			<dt><img v-bind:src=content.src /><img v-bind:src=content.src id="disappear" /></dt>
     			<dd>
     				<p>{{content.name}}</p>
     				<p>￥{{content.price}} <span>库存：{{content.store}}</span></p>
@@ -96,9 +96,10 @@ import {setCookie,getCookie} from '../assets/cookie.js'
 
 setCookie('count',0) //初始化存储中商品数量
 export default {
-	components:{
-		Littlemenu
-	},
+		components:{
+			Littlemenu
+		},
+		props:["goodsId"],
     name: 'detail',
     data () {
     	return {
@@ -121,9 +122,10 @@ export default {
     	}
   	},
   	created () {
-		var id=this.$route.params.id;   //获取点击商品的ID，并将商品数据渲染到页面上
-		var that=this;
-		if (id.indexOf("p")>=0) {
+			var id=this.$route.params.id;   //获取点击商品的ID，并将商品数据渲染到页面上
+   			var that=this;
+// 			调取单个商品id
+			if (id.indexOf("p")>=0) {
 		  	axios.get("static/json/puersheng.json").then(function(res){
 					that.arr=res.data;
 					for (var i=0 ; i<that.arr.length; i++) {
@@ -184,16 +186,16 @@ export default {
 	  	cli(){
 	  		this.isshow=!this.isshow;  //小菜单的显示
 	  	},
-	  	back(){
+	  	back(){														
 	  		this.$router.go(-1);  //返回上一页
 	  	},
 	  	//购物车添加
 	  	buy(){
 	  		this.count=getCookie("count")//给商品数量赋初值
 	  		this.isbuy=true;                          //菜单显示
-	  		this.show=true,                          //购物车商品数量显示
-	  		this.time++;                                //点击添加购物车额的数量
+	  		this.time++;                                //点击添加购物车的数量
 	  		if (this.time%2==0) {
+	  			this.show=true,                          //购物车商品数量显示
 	  			this.count++;                          //商品数量+1
 	  			setCookie("count",this.count);               //存到本地
 	  			this.count=getCookie("count")               //更新商品数量初值
@@ -201,6 +203,8 @@ export default {
 	  			var is=getCookie("is");
 	  			is=true;
 	  			setCookie("is",is)
+	  			//添加商品动画
+	  			$("#disappear").addClass("animated zoomOutDown")
 	  			
 	  			//获得用户ID
 	  			this.uid=getCookie("uid");
@@ -395,6 +399,13 @@ table tr td:nth-child(1){
 	height: 95px;
 	display: flex;
 	background: white;
+	position: relative;
+}
+#disappear{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 29%;
 }
 .buy dl dt{
 	width:30%;

@@ -18,19 +18,19 @@
 	</div>
 </template>
 <script type="text/javascript">
-	export default{
-		name:"filter",
-		data(){
-			return {
-				
-			}
-		},
-		methods:{
-		  	back(){
-		  		this.$router.go(-1);
-			}
+export default{
+	name:"filter",
+	data(){
+		return {
+			
+		}
+	},
+	methods:{
+	  	back(){
+	  		this.$router.go(-1);
 		}
 	}
+}
 </script>
 <style scoped>
 *{

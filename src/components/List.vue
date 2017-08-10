@@ -20,7 +20,7 @@
     		<li @click="year">新上架</li>
     		<li @click="price">价格</li>
     		<li @click="shai">筛选▼</li>
-    		<p><img src="static/img/browse_list.png"/></p>
+    		<!--<p><img src="static/img/browse_list.png"/></p>-->
     	</ul>
     	<!--列表商品-->
     	<ul id="pro">
@@ -77,7 +77,8 @@ export default {
     		ipt:'',
     		is1:true,
     		is2:false,
-    		is3:false
+    		is3:false,
+    		historys:[]
    		}
    },
     created(){
@@ -92,25 +93,31 @@ export default {
 	  		lis[0].style.color="#ed5564";
 	  		//搜索值传递
     	if (this.$router.history.current.query.name==undefined) {
-    		this.sou=this.$refs.val.value=this.$router.history.current.query.strings;
+				this.sou=this.$refs.val.value=this.$router.history.current.query.strings;
+    		this.historys=JSON.parse(localStorage.getItem("history"))
+    		this.historys.push(this.sou)
+				localStorage.setItem("history",JSON.stringify(this.historys))
     	}else{
-    		this.sou=this.$refs.val.value=this.$router.history.current.query.name;
+				this.sou=this.$refs.val.value=this.$router.history.current.query.name;
+    		this.historys=JSON.parse(localStorage.getItem("history"))
+    		this.historys.push(this.sou)
+				localStorage.setItem("history",JSON.stringify(this.historys))
     	}
     },
     methods:{
-    	//回退
   		back(){
-  			this.$router.go(-1)
+  			this.$router.go(-1)    //回退
   		},
 	  	little(){
-	  		this.isshow=!this.isshow;
+	  		this.isshow=!this.isshow;    //小菜单
 	  	},
 	  	style(){
-	  		this.$router.push("/kind/br")
+	  		this.$router.push("/kind/br")   //分类
 	  	},
 	  	shai(){
-	  		this.$router.push("/filter")
+	  		this.$router.push("/filter")   //筛选
 	  	},
+	  	//排序
 	  	zong(){
 	  		var lis=document.querySelectorAll("#tiaojian li");
 	  		lis[0].style.color="#ed5564";

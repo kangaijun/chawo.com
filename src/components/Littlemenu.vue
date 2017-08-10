@@ -4,7 +4,7 @@
     <ul>
     	<li><router-link to="/hello/home"><img src="static/img/home_w.png"/> 首页</router-link></li>
     	<li><router-link to="/search"><img src="static/img/search_w.png"/> 搜索</router-link></li>
-    	<li><router-link to="/hello/shoppingCar"><img src="static/img/cart_w.png"/> 购物车</router-link></li>
+    	<li><router-link to="/Car"><img src="static/img/cart_w.png"/> 购物车</router-link></li>
     	<li><router-link to="/load"><img src="static/img/member_w.png"/> 我的商城</router-link></li>
     	<li><router-link to="/load"><img src="static/img/message_w.png"/> 消息</router-link></li>
     </ul>
